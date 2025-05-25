@@ -3,7 +3,6 @@ package com.raulproject.dslist.controllers;
 import com.raulproject.dslist.dto.GameDTO;
 import com.raulproject.dslist.dto.GameListDTO;
 import com.raulproject.dslist.dto.GameMinDTO;
-import com.raulproject.dslist.entities.GameList;
 import com.raulproject.dslist.service.GameListService;
 import com.raulproject.dslist.service.GameService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +19,18 @@ import java.util.List;
 public class GameListController {
 
     private final GameListService gameListService;
+    private final GameService gameService;
 
 
     @GetMapping
     public List<GameListDTO> findAll(){
         List<GameListDTO> result = gameListService.findAll();
+        return result;
+    }
+
+    @GetMapping(value = "/{listId}/games")
+    public List<GameMinDTO> findById(@PathVariable Long listId){
+        List<GameMinDTO> result = gameService.findByList(listId);
         return result;
     }
 
